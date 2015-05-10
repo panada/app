@@ -14,7 +14,7 @@ Panada is only supported on PHP 5.4 and up.
 Installation
 ------------
 ```
-composer create-project panada/app --prefer-dist myweb
+composer create-project panada/app --prefer-dist --stability=dev myweb
 ```
 or Just download the source file from Github.
 
