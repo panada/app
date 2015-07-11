@@ -25,7 +25,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "panada/panada": "dev-2.X-nightly-build"
+        "panada/resources": "dev-2.X-nightly-build"
     },
     "autoload": {
         "classmap": ["vendor/panada/"]

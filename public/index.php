@@ -11,9 +11,9 @@ define('APP', dirname(__DIR__) . '/src/');
 define('INDEX_FILE', basename(__FILE__));
 
 // And the GEAR constant is where panada folder located.
-define('GEAR', dirname(__DIR__).'/vendor/panada/panada/src/');
+define('GEAR', dirname(__DIR__).'/vendor/panada/');
 
-require GEAR.'Panada/Gear.php';
+require GEAR.'resources/Gear.php';
 
 // To sets which PHP errors are reported just like documented in this page
 // http://php.net/manual/en/function.error-reporting.php
@@ -23,4 +23,4 @@ require GEAR.'Panada/Gear.php';
 // new Gear(0);
 
 // By default all errors will displayed - development use.
-echo new \Panada\Gear;
+echo new \Panada\Resources\Gear;
