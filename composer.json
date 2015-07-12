@@ -21,11 +21,16 @@
         {
             "type": "git",
             "url": "https://github.com/panada/panada"
+        },
+        {
+            "type":"git",
+            "url":"https://github.com/panada/session"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "panada/resources": "dev-2.X-nightly-build"
+        "panada/resources": "dev-2.X-nightly-build",
+        "panada/session":"dev-master"
     },
     "autoload": {
         "classmap": ["vendor/panada/"]
