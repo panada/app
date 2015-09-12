@@ -1,0 +1,1 @@
+hallo ini view dari <?=$name?>

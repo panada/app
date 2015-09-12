@@ -4,7 +4,7 @@
     "keywords": ["php", "panada", "framework", "High Performance", "simple"],
     "homepage": "http://panadaframework.com/",
     "type": "project",
-    "license": "BSD license",
+    "license": "MIT license",
     "authors": [
         {
             "name": "Iskandar Soesman",
@@ -17,23 +17,15 @@
         "wiki": "http://panadaframework.com/documentation/id/",
         "source": "https://github.com/panada/Panada/"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/panada/panada"
-        },
-        {
-            "type":"git",
-            "url":"https://github.com/panada/session"
-        }
-    ],
     "require": {
         "php": ">=5.4.0",
-        "panada/resources": "dev-2.X-nightly-build",
-        "panada/session":"dev-master"
-    },
-    "autoload": {
-        "classmap": ["vendor/panada/"]
+        "panada/resource": "dev-master",
+        "panada/cache": "dev-master",
+        "panada/medoo": "dev-master",
+        "panada/request": "dev-master",
+        "panada/session": "dev-master",
+        "panada/utility": "dev-master",
+        "panada/router": "dev-master"
     },
     "minimum-stability": "dev"
 }
