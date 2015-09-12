@@ -24,7 +24,7 @@ Then open your browser http://localhost:8181
 
 Create a new file named Hello.php in src/Controller folder. Then write some class:
 
-```
+```php
 <?php
 
 namespace Controller;
@@ -47,7 +47,7 @@ Now open your browser http://localhost:8181/hello or http://localhost:8181/me/jh
 
 In version 2.0 we changed the way a controller getting the controller's helper method. To use this helper you can use the Controller trait.
 
-```
+```php
 <?php
 
 namespace Controller;
@@ -65,7 +65,7 @@ class Hello
 
 Or if you use a constructor method in your controller you can use:
 
-```
+```php
 <?php
 namespace Controller;
 
@@ -108,7 +108,7 @@ class Cookies
 
 You can manage separated html template files in views folder. Now lets create a view file within src/view folder then named it as helloWorld.php
 
-```
+```html
 <html>
     <head>
         <title>Hellow world!</title>
@@ -121,7 +121,7 @@ You can manage separated html template files in views folder. Now lets create a 
 
 To display your view file, use $this->output() method in your controller's method:
 
-```
+```php
 <?php
 
 namespace Controller;
@@ -139,7 +139,7 @@ class Hello
 
 To passed a value from controller to view, just add an array in the second argument of $this->output() method:
 
-```
+```php
 <?php
 
 namespace Controller;
@@ -157,7 +157,7 @@ class Hello
 
 Then use $name variable within your view file.
 
-```
+```html
 <html>
     <head>
         <title><?=$name?></title>
@@ -172,7 +172,7 @@ Then use $name variable within your view file.
 
 Routing is a way to lets you define certain URLs that you map to different areas of your application. Panada route config are located in src/config/routes.php here's the examples
 
-```
+```php
 <?php
 
 use \Panada\Router\Routes;
@@ -196,7 +196,7 @@ Version 2.0 adopting [Medoo](http://medoo.in/), an extremely simple database fra
 
 Your db config located in src/config/database.php
 
-```
+```php
 <?php
 
 return [
@@ -213,7 +213,7 @@ return [
 ```
 Heres an example to insert then fatch some db data:
 
-```
+```php
 public function testDB()
 {
     $database = \Panada\Medoo\Medoo::getInstance();
@@ -251,7 +251,7 @@ To see more example how to use the db apis, please check this one https://github
 
 If you hanve more then one db connection, here's the example:
 
-```
+```php
 <?php
 
 return [
@@ -284,7 +284,7 @@ return [
 
 Call the db helper:
 
-```
+```php
 public function testDB()
 {
     $db1 = \Panada\Medoo\Medoo::getInstance();
@@ -366,7 +366,7 @@ Panada folder now moved to vendor/panada.
 
 In version 1.1 to display the output diveloper simply just echo the variable just like this:
 
-```
+```php
 public function index($id = 0)
 {
     echo 'This is the news with ID' . $id;
@@ -374,7 +374,7 @@ public function index($id = 0)
 ```
 Or, use $this->output() metod to display from view file:
 
-```
+```php
 public function index()
 {        
     $this->output('helloworldViewFile');
@@ -383,7 +383,7 @@ public function index()
 
 But in version 2.0 all you have to is return the object, just like:
 
-```
+```php
 public function index($id = 0)
 {
     return 'This is the news with ID' . $id;
@@ -398,14 +398,14 @@ public function page()
 
 Controller's namespace now become:
 
-```
+```php
 <?php
 namespace Controller;
 ```
 
 Controller's parent class changed from:
 
-```
+```php
 class Home extends \Libraries\Controller
 {
     public function __construct()
@@ -422,7 +422,7 @@ class Home extends \Libraries\Controller
 
 to
 
-```
+```php
 class Home
 {
     use Controller {
