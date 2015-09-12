@@ -3,7 +3,7 @@
 Panada is a high performance PHP 5.4 base development framework, yet simple.
 Not only in contexts about how to use it, but also how the core system run it.
 
-At this time, Panada 2.0 is on its very heavy in development phrases, so it will be a lot changes in the features.
+At this time, Panada 2.0 is on its very heavy development phrases, so it will be a lot changes in the features.
 
 ## Requirements
 
@@ -35,8 +35,15 @@ class Hello
     {
         return 'Hello world!';
     }
+    
+    public function me($firstName = null, $lastName = null)
+    {
+        return 'My name is:'.$name.' '.$lastName;
+    }
 }
 ```
+
+Now open your browser http://localhost:8181/hello or http://localhost:8181/me/jhon/doe
 
 In version 2.0 we changed the way a controller getting the controller's helper method. To use this helper you can use the Controller trait.
 
@@ -185,9 +192,156 @@ Routes::get('/exampleModule', ['controller' => 'Module\ExampleModule\Controller\
 
 ### Database
 
+Version 2.0 adopting [Medoo](http://medoo.in/), an extremely simple database framework. But instead of embrace all the APIs, we make some changes to get more flexibility. See [here](https://github.com/panada/medoo) to get more datail.
+
+Your db config located in src/config/database.php
+
+```
+<?php
+
+return [
+    'default' => [
+        'databaseType' => 'mysql',
+        'databaseName' => 'panada',
+        'server' => '127.0.0.1',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8'
+    ],
+];
+
+```
+Heres an example to insert then fatch some db data:
+
+```
+public function testDB()
+{
+    $database = \Panada\Medoo\Medoo::getInstance();
+    
+    $name = time();
+    
+    $lastUserId = $database->insert("users", [
+        "name" => $name,
+        "email" => $name."@bar.com",
+    ]);
+    
+    var_dump($$lastUserId);
+    
+    $user = $database->select("users", [
+        "name",
+        "email"
+    ])->fetch(\PDO::FETCH_ASSOC);
+    
+    var_dump($user);
+        
+    $database->update('users',
+        ['name' => $name],
+        ['email' => 'joe@gmail.com']
+    );
+    
+    $user = $database->select('users', 'name', [
+        'email' => 'joe@gmail.com'
+    ])->fetch(\PDO::FETCH_ASSOC);
+    
+    var_dump($user);
+}
+```
+
+To see more example how to use the db apis, please check this one https://github.com/panada/medoo/blob/master/Tests/SelectTest.php
+
+If you hanve more then one db connection, here's the example:
+
+```
+<?php
+
+return [
+    'default' => [
+        'databaseType' => 'mysql',
+        'databaseName' => 'mydb1',
+        'server' => '127.0.0.1',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8'
+    ],
+    'db2' => [
+        'databaseType' => 'mysql',
+        'databaseName' => 'mydb2',
+        'server' => '127.0.0.1',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8'
+    ],
+    'db3' => [
+        'databaseType' => 'mysql',
+        'databaseName' => 'mydb3',
+        'server' => '127.0.0.1',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8'
+    ]
+];
+```
+
+Call the db helper:
+
+```
+public function testDB()
+{
+    $db1 = \Panada\Medoo\Medoo::getInstance();
+    $db2 = \Panada\Medoo\Medoo::getInstance('db2');
+    $db3 = \Panada\Medoo\Medoo::getInstance('db3');
+}
+```
+
 ### Webserver
 
 #### Nginx
+
+[Nginx](http://wiki.nginx.org/Main) is a free, open-source, high-performance and extremely fast HTTP server. To get it works with your Panada project, you can use the following sample server config:
+
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    # this is the root of your project
+    root /var/www/public;
+    index index.php;
+
+    location / {
+            try_files $uri /index.php$request_uri;
+    }
+
+    location ~ \.php(/|$) {
+        index index.php;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+
+#### Apache
+
+Create a .htaccess file in you public folder then fill with:
+
+```
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+```
 
 ### Upgrading from Version 1.1
 

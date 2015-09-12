@@ -21,4 +21,4 @@ new Panada\Resource\Loader([
 ]);
 
 // Instantiate Panada bootstrap class
-(new Panada\Resource\Gear)->output();
+(new Panada\Resource\Gear(\Panada\Request\Uri::getInstance()))->output();
