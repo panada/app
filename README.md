@@ -292,6 +292,17 @@ public function testDB()
     $db3 = \Panada\Medoo\Medoo::getInstance('db3');
 }
 ```
+### Session
+
+coming soon.
+
+### Cache
+
+coming soon.
+
+### External Libraries
+
+Panada 2.0 fully embraces [Composer](https://getcomposer.org/). Installation of additional Panada package or external libraries are handled through Composer.
 
 ### Webserver
 
