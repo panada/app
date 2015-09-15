@@ -300,7 +300,7 @@ coming soon.
 
 coming soon.
 
-### External Libraries
+### Additional Libraries
 
 Panada 2.0 fully embraces [Composer](https://getcomposer.org/). Installation of additional Panada package or external libraries are handled through Composer.
 
@@ -360,7 +360,7 @@ There are lot lot differences between versions 1.1 and 2.0 since Panada was comp
 
 #### Front Controller (index.php)
 
-All the content of index.php file are totally changed. In version 2.0 we don't use any global contants any more. So if you use any of these constants: APP, INDEX_FILE or GEAR please updated it.
+All the content of index.php file are totally changed. In version 2.0 we don't use any global constants any more. So if you use any of these constants: APP, INDEX_FILE or GEAR please updated it.
 
 #### Folders Name
 
@@ -392,7 +392,7 @@ public function index()
 }
 ```
 
-But in version 2.0 all you have to is return the object, just like:
+But in version 2.0 all you have to do is return the object, just like:
 
 ```php
 public function index($id = 0)
@@ -466,3 +466,7 @@ Since version 2.0 use [Medoo](https://github.com/panada/medoo) as the default db
 
 We don't have complete documentation yet for Panada version 2.X. If you thinks you
 can help us to write some, it would be nice. Just fork the documentation branch at https://github.com/panada/documentation/tree/with-pure.0.5.0
+
+### Contribution
+
+Panada 2.0 consist of sub package.
