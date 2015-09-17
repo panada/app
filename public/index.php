@@ -20,5 +20,16 @@ new Panada\Resource\Loader([
     'vendor' => $vendor
 ]);
 
+// Exception handler
+$exception = new Panada\Resource\Exception;
+        
+set_exception_handler([$exception, 'main']);
+set_error_handler([$exception, 'errorHandler'], E_ALL);
+
 // Instantiate Panada bootstrap class
-(new Panada\Resource\Gear(\Panada\Request\Uri::getInstance()))->output();
+$uri = Panada\Request\Uri::getInstance();
+$response = Panada\Resource\Response::getInstance();
+
+new Panada\Resource\Gear($uri, $response);
+
+echo $response->output();
