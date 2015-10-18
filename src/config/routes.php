@@ -1,11 +1,39 @@
 <?php
 
-use \Panada\Router\Routes;
-
-// This is only served as examples to show how Routes being used
-// in an application
-
-Routes::get('/test1', ['controller' => 'Controller\Home', 'action' => 'test1']);
-Routes::get('/test2', ['controller' => 'Controller\Home', 'action' => 'test2']);
-Routes::get('/blog/:name', ['controller' => 'Controller\Hidden\HiddenPage', 'action' => 'index']);
-Routes::get('/exampleModule', ['controller' => 'Module\ExampleModule\Controller\Home', 'action' => 'index']);
+return [
+    'pattern' => [
+        'year' => '/^[0-9]{4}$/i',
+        'month' => '/^[0-9]{2}$/i',
+        'id' => '/^[1-9][0-9]+$/i',
+        'name' => '/^[a-z][a-z0-9_]+$/i'
+    ],
+    'defaults' => [
+        'method' => 'GET|POST',
+        'protocol' => 'http',
+        'subdomain' => '',
+        'domain' => 'localhost',
+        'port' => 8081,
+    ],
+    'route' => [
+        'archive' => [
+            'url'=>'/news/:year/:month',
+            'controller'=>'news',
+            'action'=>'archive'
+        ],
+        'article' => [
+            'url'=>'/post',
+            'controller'=>'posts',
+            'action'=>'view'
+        ],
+        'test1' => [
+            'url'=>'/test1',
+            'controller'=>'Controller\Home',
+            'action'=>'test1'
+        ],
+        'blog' => [
+            'url'=>'/blog/:name',
+            'controller'=>'Controller\Hidden\HiddenPage',
+            'action'=>'index'
+        ]
+    ]
+];

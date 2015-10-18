@@ -300,6 +300,10 @@ coming soon.
 
 coming soon.
 
+### Modules
+
+coming soon.
+
 ### Additional Libraries
 
 Panada 2.0 fully embraces [Composer](https://getcomposer.org/). Installation of additional Panada package or external libraries are handled through Composer.
