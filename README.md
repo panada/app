@@ -170,7 +170,23 @@ Then use $name variable within your view file.
 
 ### Routing
 
-Routing is a way to lets you define certain URLs that you map to different areas of your application. Panada route config are located in src/config/routes.php here's the examples
+Routing is a way to lets you define certain URLs that you map to different areas of your application.
+
+There are 3 entities that must be defined in Router class.
+
+#### 1. Patterns
+
+A pattern defines how dynamic parts of a URL must look like. in fact, the patterns are essential to define dynamic routes. for example, the post_id and published_date in a url will be detected by three different patterns.
+
+#### 2. defaults
+
+A default value will be used for part of a URL when we don't want to mention every time we are defining a route or creating a link.
+
+#### 3. Routes
+
+A map from url to controllers.
+
+Panada route config are located in src/config/routes.php here's the examples
 
 ```php
 <?php
