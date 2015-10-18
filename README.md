@@ -175,19 +175,43 @@ Routing is a way to lets you define certain URLs that you map to different areas
 ```php
 <?php
 
-use \Panada\Router\Routes;
-
-// route route www.site.com/test1 to Controller\Home::test1()
-Routes::get('/test1', ['controller' => 'Controller\Home', 'action' => 'test1']);
-
-// route route www.site.com/test2 to Controller\Home::tes2()
-Routes::get('/test2', ['controller' => 'Controller\Home', 'action' => 'test2']);
-
-// rote a request to some sub controller
-Routes::get('/blog/:name', ['controller' => 'Controller\Hidden\HiddenPage', 'action' => 'index']);
-
-// rote a request to a module
-Routes::get('/exampleModule', ['controller' => 'Module\ExampleModule\Controller\Home', 'action' => 'index']);
+return [
+    'pattern' => [
+        'year' => '/^[0-9]{4}$/i',
+        'month' => '/^[0-9]{2}$/i',
+        'id' => '/^[1-9][0-9]+$/i',
+        'name' => '/^[a-z][a-z0-9_]+$/i'
+    ],
+    'defaults' => [
+        'method' => 'GET|POST',
+        'protocol' => 'http',
+        'subdomain' => '',
+        'domain' => 'localhost',
+        'port' => 8081,
+    ],
+    'route' => [
+        'archive' => [
+            'url'=>'/news/:year/:month',
+            'controller'=>'news',
+            'action'=>'archive'
+        ],
+        'article' => [
+            'url'=>'/post',
+            'controller'=>'posts',
+            'action'=>'view'
+        ],
+        'test1' => [
+            'url'=>'/test1',
+            'controller'=>'Controller\Home',
+            'action'=>'test1'
+        ],
+        'blog' => [
+            'url'=>'/blog/:name',
+            'controller'=>'Controller\Hidden\HiddenPage',
+            'action'=>'index'
+        ]
+    ]
+];
 ```
 
 ### Database
