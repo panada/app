@@ -172,7 +172,7 @@ Then use $name variable within your view file.
 
 Routing is a way to lets you define certain URLs that you map to different areas of your application.
 
-There are 3 entities that must be defined in Router class.
+There are 3 entities that must be defined in Router config file.
 
 #### 1. Patterns
 
