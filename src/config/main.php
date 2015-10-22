@@ -2,5 +2,11 @@
 
 return [
 
-    'defaultController' => 'Home'
+    'defaultController' => 'Home',
+    
+    'requestHandlerRule' => [
+        'controllerHandler',
+        'moduleHandler',
+        'routingHandler'
+    ]
 ];
