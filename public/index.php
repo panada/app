@@ -4,7 +4,11 @@ date_default_timezone_set('Asia/Jakarta');
 
 // Sets folder maps where the source code located
 $dir = dirname(__DIR__);
+
+// Application folder
 $app = $dir.'/src/';
+
+// Composer's vendor folder
 $vendor = $dir.'/vendor/';
 
 // Include the autoloader class handler
@@ -20,16 +24,4 @@ new Panada\Resource\Loader([
     'vendor' => $vendor
 ]);
 
-// Exception handler
-$exception = new Panada\Resource\Exception;
-        
-set_exception_handler([$exception, 'main']);
-set_error_handler([$exception, 'errorHandler'], E_ALL);
-
-// Instantiate Panada bootstrap class
-$uri = Panada\Request\Uri::getInstance();
-$response = Panada\Resource\Response::getInstance();
-
-new Panada\Resource\Gear($uri, $response);
-
-echo $response->output();
+Panada\Resource\Gear::send();
