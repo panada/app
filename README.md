@@ -232,8 +232,6 @@ return [
 
 ### Database
 
-Version 2.0 adopting [Medoo](http://medoo.in/), an extremely simple database framework. But instead of embrace all the APIs, we make some changes to get more flexibility. See [here](https://github.com/panada/medoo) to get more datail.
-
 Your db config located in src/config/database.php
 
 ```php
@@ -241,13 +239,14 @@ Your db config located in src/config/database.php
 
 return [
     'default' => [
-        'databaseType' => 'mysql',
-        'databaseName' => 'panada',
-        'server' => '127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'charset' => 'utf8'
-    ],
+        'dsn' => 'mysql:host=127.0.0.1;dbname=panada;port=3306',
+		'username' => 'root',
+		'password' => '',
+		'options' => [
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            PDO::ATTR_PERSISTENT => true
+		]
+    ]
 ];
 
 ```
@@ -256,38 +255,19 @@ Heres an example to insert then fatch some db data:
 ```php
 public function testDB()
 {
-    $database = \Panada\Medoo\Medoo::getInstance();
+    $this->db = \Panada\Database\SQL::getInstance();
     
-    $name = time();
-    
-    $lastUserId = $database->insert("users", [
-        "name" => $name,
-        "email" => $name."@bar.com",
+    $query = $this->db->insert('users', [
+        'name' => rand(), 'email' => 'budi@budi.com', 'password' => 'password'
     ]);
     
-    var_dump($$lastUserId);
+    $data = $this->db->select()->from('users')->getAll();
     
-    $user = $database->select("users", [
-        "name",
-        "email"
-    ])->fetch(\PDO::FETCH_ASSOC);
-    
-    var_dump($user);
-        
-    $database->update('users',
-        ['name' => $name],
-        ['email' => 'joe@gmail.com']
-    );
-    
-    $user = $database->select('users', 'name', [
-        'email' => 'joe@gmail.com'
-    ])->fetch(\PDO::FETCH_ASSOC);
-    
-    var_dump($user);
+    return 'status insert: '.var_export($query, true).' data: <pre>'.print_r($data, true).'</pre>';
 }
 ```
 
-To see more example how to use the db apis, please check this one https://github.com/panada/medoo/blob/master/Tests/SelectTest.php
+To see more example how to use the db apis, please check this one https://github.com/panada/database/blob/master/README.md
 
 If you hanve more then one db connection, here's the example:
 
@@ -296,28 +276,31 @@ If you hanve more then one db connection, here's the example:
 
 return [
     'default' => [
-        'databaseType' => 'mysql',
-        'databaseName' => 'mydb1',
-        'server' => '127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'charset' => 'utf8'
+        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb1;port=3306',
+		'username' => 'root',
+		'password' => '',
+		'options' => [
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            PDO::ATTR_PERSISTENT => true
+		]
     ],
     'db2' => [
-        'databaseType' => 'mysql',
-        'databaseName' => 'mydb2',
-        'server' => '127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'charset' => 'utf8'
+        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb2;port=3307',
+		'username' => 'root',
+		'password' => '',
+		'options' => [
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            PDO::ATTR_PERSISTENT => true
+		]
     ],
     'db3' => [
-        'databaseType' => 'mysql',
-        'databaseName' => 'mydb3',
-        'server' => '127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'charset' => 'utf8'
+        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb3;port=3308',
+		'username' => 'root',
+		'password' => '',
+		'options' => [
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf9',
+            PDO::ATTR_PERSISTENT => true
+		]
     ]
 ];
 ```
@@ -327,9 +310,9 @@ Call the db helper:
 ```php
 public function testDB()
 {
-    $db1 = \Panada\Medoo\Medoo::getInstance();
-    $db2 = \Panada\Medoo\Medoo::getInstance('db2');
-    $db3 = \Panada\Medoo\Medoo::getInstance('db3');
+    $db1 = \Panada\Database\SQL::getInstance();
+    $db2 = \Panada\Database\SQL::getInstance('db2');
+    $db3 = \Panada\Database\SQL::getInstance('db3');
 }
 ```
 ### Session
@@ -504,7 +487,7 @@ All alias features are removed. To accommodate your alias like features, you can
 
 #### Database
 
-Since version 2.0 use [Medoo](https://github.com/panada/medoo) as the default db query builder, there are now way to use your current query in version 2.0. You must update all your db query.
+Since version 2.0, Panada use PDO as the default db driver, there are now way to use your current query in version 2.0. You must update all your db query.
 
 ## Full Documentation
 
