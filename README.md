@@ -496,4 +496,14 @@ can help us to write some, it would be nice. Just fork the documentation branch 
 
 ### Contribution
 
-Panada 2.0 consist of sub package.
+Panada 2.0 consist number of sub packages. To report any bug or make some contribution, please go to each package repo.
+
+Package | First install | Repo
+--- | --- | ---
+resource | yes | https://github.com/panada/resource
+database | yes | https://github.com/panada/database
+request | yes | https://github.com/panada/request
+utility | yes | https://github.com/panada/utility
+router | yes | https://github.com/panada/router
+cache | no | https://github.com/panada/cache
+session | no | https://github.com/panada/session
