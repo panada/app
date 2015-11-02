@@ -18,10 +18,10 @@
         "source": "https://github.com/panada/Panada/"
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "panada/resource": "dev-master",
         "panada/cache": "dev-master",
-        "panada/medoo": "dev-master",
+        "panada/database": "dev-master",
         "panada/request": "dev-master",
         "panada/session": "dev-master",
         "panada/utility": "dev-master",
