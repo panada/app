@@ -269,7 +269,7 @@ public function testDB()
 
 To see more example how to use the db apis, please check this one https://github.com/panada/database/blob/master/README.md
 
-If you hanve more then one db connection, here's the example:
+If you have more then one db connection, here's the example:
 
 ```php
 <?php
