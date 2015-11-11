@@ -181,6 +181,29 @@ Then use $name variable within your view file.
 
 Modules are sub-applications that consist of models, views, controllers, and other supporting components. Modules differ from applications in that modules cannot be deployed alone and must reside within an applications. Every module in Panada reside in ```Module``` folder.
 
+Every class within a module should add the module name in his namespace. For example:
+
+```php
+<?php
+
+namespace Module\Foo\Controller;
+
+class Bar
+{
+    use \Panada\Resource\Controller;
+    
+    public function index()
+    {
+        return __METHOD__;
+    }
+    
+    public function blog()
+    {
+        return __METHOD__;
+    }
+}
+```
+
 #### Accessing Modules
 
 URL form for accessing a controller within a module take the following format:
@@ -257,6 +280,18 @@ return [
         ]
     ]
 ];
+```
+
+### Request Handler Priority Rule
+
+There are times when we have a controller with the same name as the name of a module, or even match with one of routing rules. In this situation, by default Panada will check main controller first, then module, then route. If your prefer other rule priority you can change ini ```app/src/config/main.php``` file.
+
+```php
+'requestHandlerRule' => [
+    'controllerHandler',
+    'moduleHandler',
+    'routingHandler'
+]
 ```
 
 ### Database
