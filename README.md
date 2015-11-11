@@ -128,7 +128,7 @@ You can manage separated html template files in views folder. Now lets create a 
 </html>
 ```
 
-To display your view file, use $this->output() method in your controller's method:
+To display your view file, use ```$this->output()``` method in your controller's method:
 
 ```php
 <?php
@@ -146,7 +146,7 @@ class Hello
 }
 ```
 
-To passed a value from controller to view, just add an array in the second argument of $this->output() method:
+To passed a value from controller to view, just add an array in the second argument of ```$this->output()``` method:
 
 ```php
 <?php
