@@ -405,6 +405,9 @@ class Admin
         $this->_construct();
         
         $this->session = Panada\Session\Session::getInstance();
+        
+        // pass config name in getInstance method if you have another session config
+        // $this->session = Panada\Session\Session::getInstance('config2');
     }
     
     public function index()
@@ -434,7 +437,7 @@ class Admin
 
 ### Cache
 
-Here's an example how to use session:
+Here's an example how to use cache:
 
 ```php
 <?php
@@ -455,6 +458,9 @@ class Blog
         $this->_construct();
         
         $this->cache = Panada\Cache\Cache::getInstance();
+        
+        // pass config name in getInstance method if you have another cache config
+        // $this->cache = Panada\Cache\Cache::getInstance();'config2');
     }
     
     public function index()
