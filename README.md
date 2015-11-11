@@ -3,7 +3,7 @@
 Panada is a high performance PHP 5.5 base development framework, yet simple.
 Not only in contexts about how to use it, but also how the core system run it.
 
-At this time, Panada 2.0 is on its very heavy development phrases, so it will be a lot changes in the features.
+At this time, Panada 2.0 is on its very heavy development phase, so it will be a lot changes in the features.
 
 ## Requirements
 
@@ -18,9 +18,11 @@ php -S localhost:8181
 
 Then open your browser http://localhost:8181
 
-## How Tos
+## Quick Start Guide
 
 ### Controller
+
+As part of the HMVC architecture, controllers are responsible for processing requests and generating responses, both in main application controller's and module controller's. Now lets create one in main application.
 
 Create a new file named Hello.php in src/Controller folder. Then write some class:
 
@@ -41,6 +43,13 @@ class Hello
         return 'My name is:'.$name.' '.$lastName;
     }
 }
+```
+#### Accesing Controller
+
+URL form for accessing a controller take the following format:
+
+```
+ControllerName/ActionName
 ```
 
 Now open your browser http://localhost:8181/hello or http://localhost:8181/me/jhon/doe
@@ -168,17 +177,37 @@ Then use $name variable within your view file.
 </html>
 ```
 
+### Modules
+
+Modules are sub-applications that consist of models, views, controllers, and other supporting components. Modules differ from applications in that modules cannot be deployed alone and must reside within an applications. Every module in Panada reside in ```Module``` folder.
+
+#### Accessing Modules
+
+URL form for accessing a controller within a module take the following format:
+
+```
+ModuleName/ControllerName/ActionName
+```
+
+So if we have a module called Foo and this module have a controller called Bar with method called blog the URL would be:
+
+http://www.mysite.com/foo/bar/blog
+
+Or if you don't defined controller name and action name, it will goes to controller Home with index method.
+
 ### Routing
 
-Routing is a way to lets you define certain URLs that you map to different areas of your application.
+Routing is a way to lets you define certain URLs that you map to different areas of your application. Unlike main controller or module, routing give you flexibility to define your URL format.
+
+#### Router
 
 There are 3 entities that must be defined in Router config file.
 
-#### 1. Patterns
+##### 1. Patterns
 
 A pattern defines how dynamic parts of a URL must look like. in fact, the patterns are essential to define dynamic routes. for example, the post_id and published_date in a url will be detected by three different patterns.
 
-#### 2. defaults
+##### 2. defaults
 
 A default value will be used for part of a URL when we don't want to mention every time we are defining a route or creating a link.
 
@@ -231,6 +260,8 @@ return [
 ```
 
 ### Database
+
+Version 2.0 adopting [NotORM](http://www.notorm.com/), a library for simple working with data in the database.
 
 Your db config located in src/config/database.php
 
@@ -317,15 +348,123 @@ public function testDB()
 ```
 ### Session
 
-coming soon.
+Here's an example how to use session:
+
+```php
+<?php
+namespace Controller;
+
+use Panada;
+use Panada\Resource\Controller;
+
+class Admin
+{
+    use Controller
+    {
+        Controller::__construct as private _construct;
+    }
+    
+    public function __construct()
+    {
+        $this->_construct();
+        
+        $this->session = Panada\Session\Session::getInstance();
+    }
+    
+    public function index()
+    {
+        if( $this->session->getValue('isLogin') )
+            return $this->response->redirect('admin/protectedPage');
+        
+        return '<a href="'.$this->uri->location('admin/set').'">Set session</a>';
+    }
+    
+    public function protectedPage(){
+        
+        $echo = $this->session->getValue('name').'<br />';
+        $echo .= '<a href="'.$this->uri->location('admin/remove').'">Remove session</a>';
+        
+        return $echo;
+    }
+    
+    public function remove(){
+        
+        $this->session->destroy();
+        
+        return $this->response->redirect('admin');
+    }
+}
+```
 
 ### Cache
 
-coming soon.
+Here's an example how to use session:
 
-### Modules
+```php
+<?php
+namespace Controller;
 
-coming soon.
+use Panada;
+use Panada\Resource\Controller;
+
+class Blog
+{
+    use Controller
+    {
+        Controller::__construct as private _construct;
+    }
+    
+    public function __construct()
+    {
+        $this->_construct();
+        
+        $this->cache = Panada\Cache\Cache::getInstance();
+    }
+    
+    public function index()
+    {
+        $key = 'foo';
+        $val = 'bar';
+        $val2 = 'bar2';
+        
+        $info;
+        
+        // insert new value by a key
+        $status = $this->cache->setValue($key, $val);
+        
+        $info .= 'Insert status:<br>'.var_export($status, true);
+        
+        // get a value
+        $status = $this->cache->getValue($key);
+        
+        $info .= 'Get status:<br>'.var_export($status, true);
+        
+        // update a value
+        $status = $this->cache->updateValue($key, $val2);
+        
+        $info .= 'Update status:<br>'.var_export($status, true);
+        
+        // get updated value
+        $status = $this->cache->getValue($key);
+        
+        $info .= 'Get updated value status:<br>'.var_export($status, true);
+        
+        // delete a value by it key
+        $status = $this->cache->deleteValue($key);
+        
+        $info .= 'Delete status:<br>'.var_export($status, true);
+        
+        // get deleted value
+        $status = $this->cache->getValue($key);
+        
+        $info .= 'Deleted value status:<br>'.var_export($status, true);
+        
+        return $info;
+    }
+}
+```
+
+To know more about the use if cache package, go to https://github.com/panada/cache
 
 ### Additional Libraries
 
