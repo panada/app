@@ -296,9 +296,9 @@ There are times when we have a controller with the same name as the name of a mo
 
 ### Database
 
-Version 2.0 adopting [NotORM](http://www.notorm.com/), a library for simple working with data in the database.
+Version 2.0 adopting [NotORM](https://github.com/panada/notorm), a library for simple working with data in the database.
 
-Your db config located in src/config/database.php
+Your db config located in ```src/config/database.php```
 
 ```php
 <?php
@@ -316,71 +316,72 @@ return [
 ];
 
 ```
-Heres an example to insert then fatch some db data:
 
-```php
-public function testDB()
-{
-    $this->db = \Panada\Database\SQL::getInstance();
-    
-    $query = $this->db->insert('users', [
-        'name' => rand(), 'email' => 'budi@budi.com', 'password' => 'password'
-    ]);
-    
-    $data = $this->db->select()->from('users')->getAll();
-    
-    return 'status insert: '.var_export($query, true).' data: <pre>'.print_r($data, true).'</pre>';
-}
-```
-
-To see more example how to use the db apis, please check this one https://github.com/panada/database/blob/master/README.md
-
-If you have more then one db connection, here's the example:
+Here's example how to use NotORM:
 
 ```php
 <?php
 
-return [
-    'default' => [
-        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb1;port=3306',
-		'username' => 'root',
-		'password' => '',
-		'options' => [
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-            PDO::ATTR_PERSISTENT => true
-		]
-    ],
-    'db2' => [
-        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb2;port=3307',
-		'username' => 'root',
-		'password' => '',
-		'options' => [
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-            PDO::ATTR_PERSISTENT => true
-		]
-    ],
-    'db3' => [
-        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb3;port=3308',
-		'username' => 'root',
-		'password' => '',
-		'options' => [
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf9',
-            PDO::ATTR_PERSISTENT => true
-		]
-    ]
-];
-```
+namespace Controller;
 
-Call the db helper:
-
-```php
-public function testDB()
+class Testnotorm
 {
-    $db1 = \Panada\Database\SQL::getInstance();
-    $db2 = \Panada\Database\SQL::getInstance('db2');
-    $db3 = \Panada\Database\SQL::getInstance('db3');
+    public function __construct()
+    {
+        $this->db = \Panada\Notorm\NotORM::getInstance();
+        
+        // pass config name in getInstance method if you have another config
+        // $this->db = \Panada\Notorm\NotORM::getInstance('mysql');
+    }
+    
+    public function index()
+    {
+        $r = null;
+        foreach ($this->db->users() as $user) {
+            $r .= $user['email'].'<br>';
+        }
+        
+        return $r;
+    }
+    
+    public function singleRow()
+    {
+        $r = print_r($this->db->users[1]['id'], true);
+        $r .= '<br>';
+        $r .= print_r($this->db->users('id = ?', 1)->fetch()['id'], true);
+    }
+    
+    public function insert()
+    {
+        $name = time();
+        
+        $row = $this->db->users()->insert([
+            "name" => $name,
+            "email" => $name."@bar.com",
+        ]);
+        
+        return print_r($row['id'], true);
+    }
+    
+    public function update()
+    {
+        $name = time();
+        
+        $affected = $this->db->users('id = ?', 1)->fetch()->update(['name' => 'update']);
+        
+        return print_r($affected, true);
+    }
+    
+    public function delete()
+    {
+        return var_export($this->db->users[1]->delete(), true);
+    }
 }
+
 ```
+
+To see more example how to use NotORM apis, please check this repo https://github.com/panada/notorm
+
 ### Session
 
 Here's an example how to use session:
@@ -657,11 +658,53 @@ We embraces the feature of [trait](http://php.net/manual/en/language.oop5.traits
 
 #### Alias
 
-Controller features are removed and only method alias are remain. To accommodate your alias like features, you can use Route.
+Controller features are removed and only method alias are supported. To accommodate your alias like features, you can use Route.
+
+If you need to use other name for alias method, you can changed it at ```app/scr/config/main.php```.
 
 #### Database
 
-Since version 2.0, Panada use PDO as the default db driver, there are now way to use your current query in version 2.0. You must update all your db query.
+Since version 2.0, Panada use PDO as the default db driver. We also remove [Active Recored](http://panadaframework.com/documentation/id/classes/database/activerecord.html) feature and replaced with [NotORM](http://www.notorm.com/). consequently, there are now way to use your current query in version 2.0. You must update all your db query.
+
+However, we still maintain [Query Builder](http://panadaframework.com/documentation/id/classes/database/query_builder.html). But you need to update your file db configuration located at ```app/src/config/database.php```.
+
+Panada version 1 db config looks like:
+
+```
+<?php
+
+return array(
+
+    'default' => array(
+        'driver' => 'mysqli',
+        'host' => 'localhost',
+        'port' => 3306,
+        'user' => 'root',
+        'password' => '',
+        'database' => 'panada',
+        'tablePrefix' => '',
+        'charset' => 'utf8',
+        'collate' => 'utf8_general_ci',
+        'persistent' => false,
+    );
+);
+```
+
+In version 2 should be:
+
+```
+return [
+    'default' => [
+        'dsn' => 'mysql:host=127.0.0.1;dbname=mydb1;port=3306',
+		'username' => 'root',
+		'password' => '',
+		'options' => [
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            PDO::ATTR_PERSISTENT => true
+		]
+    ],
+];
+```
 
 ## Full Documentation
 
@@ -675,9 +718,10 @@ Panada 2.0 consist number of sub packages. To report any bug or make some contri
 Package | First install | Repo
 --- | --- | ---
 resource | yes | https://github.com/panada/resource
-database | yes | https://github.com/panada/database
 request | yes | https://github.com/panada/request
 utility | yes | https://github.com/panada/utility
 router | yes | https://github.com/panada/router
+NotORM | yes | https://github.com/panada/notorm
+database | yes | https://github.com/panada/database
 cache | no | https://github.com/panada/cache
 session | no | https://github.com/panada/session
