@@ -706,6 +706,8 @@ return [
 ];
 ```
 
+See more for Query Builder https://github.com/panada/database
+
 ## Full Documentation
 
 We don't have complete documentation yet for Panada version 2.X. If you thinks you
