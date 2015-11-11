@@ -22,7 +22,7 @@ Then open your browser http://localhost:8181
 
 ### Controller
 
-As part of the HMVC architecture, controllers are responsible for processing requests and generating responses, both in main application controller's and module controller's. Now lets create one in main application.
+Since version 1, Panada use HMVC design patern. As part of the HMVC architecture, controllers are responsible for processing requests and generating responses, both in main application controller's and module controller's. Now lets create one in main application.
 
 Create a new file named Hello.php in src/Controller folder. Then write some class:
 
