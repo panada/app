@@ -657,7 +657,7 @@ We embraces the feature of [trait](http://php.net/manual/en/language.oop5.traits
 
 #### Alias
 
-All alias features are removed. To accommodate your alias like features, you can use Route.
+Controller features are removed and only method alias are remain. To accommodate your alias like features, you can use Route.
 
 #### Database
 
