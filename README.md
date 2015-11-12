@@ -52,7 +52,7 @@ URL form for accessing a controller take the following format:
 ControllerName/ActionName
 ```
 
-Now open your browser http://localhost:8181/hello or http://localhost:8181/me/jhon/doe
+Now open your browser http://localhost:8181/hello or http://localhost:8181/me/john/doe
 
 In version 2.0 we changed the way a controller getting the controller's helper method. To use this helper you can use the Controller trait.
 
