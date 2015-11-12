@@ -4,6 +4,8 @@ return [
 
     'defaultController' => 'Home',
     
+    'defaultAction' => 'index',
+    
     'aliasAction' => 'alias',
     
     'requestHandlerRule' => [
