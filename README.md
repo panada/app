@@ -177,6 +177,71 @@ Then use $name variable within your view file.
 </html>
 ```
 
+### Models
+
+Models are part of the MVC architecture. They are objects representing business data, rules and logic. Model is a class whose duties are directly related to the handling of data, be it from a database, or other storage systems.
+
+#### Creating Model
+
+To create a class of models, add new files and put in the folder **src/Model/**, for example **Users.php**.
+
+Create class users in this file with a given namespace **"Model"**, for example:
+
+```
+<?php
+namespace Model;
+
+class Users
+{    
+    public function __construct()
+    {
+        
+    }
+}
+
+```
+
+#### Load Library inside Model
+
+If you are going to load a library or another class in this model, there are two ways you can do. First, if the resource of the class or the library will be used by all the methods that exist in the model class, then the retrieval and initialization can be done in the __construct method. However, if the resource just want to be used on one specific method only, then the initialization and retrieval can be done in the method in question.
+
+One of the most common thing to do in a class model is to load a database resource. Here is a simple example to load a database resource in a class of models:
+
+```php
+<?php
+namespace Model;
+use Panada\Database;
+
+class Users
+{
+    public function __construct()
+    {
+        $this->db = Database\SQL::getInstance();
+    }
+}
+```
+
+Furthermore, the property **"$this->db"** can be used in all the methods that exist in that class. Here is an example to get 5 records from the database:
+
+```php
+<?php
+namespace Model;
+use Panada\Database;
+
+class Users
+{
+    public function __construct()
+    {
+        $this->db = Database\SQL::getInstance();
+    }
+    
+    public function users()
+    {
+        return $this->db->results("SELECT * FROM table_name ORDER BY id LIMIT 5");
+    }
+}
+```
+
 ### Modules
 
 Modules are sub-applications that consist of models, views, controllers, and other supporting components. Modules differ from applications in that modules cannot be deployed alone and must reside within an applications. Every module in Panada reside in ```Module``` folder.
