@@ -23,7 +23,7 @@
         "panada/cache": "dev-master",
         "panada/database": "dev-master",
         "panada/notorm": "dev-master",
-        "panada/request": "dev-master",
+        "panada/http": "dev-master",
         "panada/session": "dev-master",
         "panada/utility": "dev-master",
         "panada/router": "dev-master"
