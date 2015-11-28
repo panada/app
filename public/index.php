@@ -24,4 +24,6 @@ new Panada\Resource\Loader([
     'vendor' => $vendor
 ]);
 
-Panada\Resource\Gear::send();
+Panada\Resource\Gear::send(
+    Panada\Http\Uri::getInstance()
+);
