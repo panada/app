@@ -11,9 +11,8 @@ Panada is only supported on PHP 5.5 and up.
 
 ## Installation
 ```
-composer create-project panada/app --prefer-dist --stability=dev myweb
-cd myweb/public
-php -S localhost:8181
+composer create-project panada/app --prefer-dist --stability=dev myweb;
+php -S localhost:8181 -t myweb/public;
 ```
 
 Then open your browser http://localhost:8181
