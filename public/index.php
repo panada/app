@@ -6,24 +6,17 @@ date_default_timezone_set('Asia/Jakarta');
 $dir = dirname(__DIR__);
 
 // Application folder
-$app = $dir.'/src/';
+$appDir = $dir.'/src/';
 
 // Composer's vendor folder
-$vendor = $dir.'/vendor/';
+$vendorDir = $dir.'/vendor/';
 
 // Include the autoloader class handler
-require $vendor.'panada/resource/Loader.php';
+require $vendorDir.'panada/loader/Auto.php';
 
-// Instantiate autoloader class
-new Panada\Resource\Loader([
-    'Controller' => $app,
-    'Panada' => $vendor.'panada/',
-    'Model' => $app,
-    'Library' => $app,
-    'Module' => $app,
-    'vendor' => $vendor
-]);
+new Panada\Loader\Auto($vendorDir);
 
 Panada\Resource\Gear::send(
-    Panada\Http\Uri::getInstance()
+    Panada\Http\Uri::getInstance(),
+    $appDir
 );
