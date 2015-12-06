@@ -12,10 +12,10 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/panada/Panada/issues?state=open",
-        "forum": "https://github.com/panada/Panada/issues/",
-        "wiki": "http://panadaframework.com/documentation/id/",
-        "source": "https://github.com/panada/Panada/"
+        "issues": "https://github.com/panada/app/issues?state=open",
+        "forum": "https://github.com/panada/app/issues",
+        "wiki": "https://github.com/panada/app/wiki",
+        "source": "https://github.com/panada/app"
     },
     "require": {
         "php": ">=5.5.0",
@@ -26,7 +26,8 @@
         "panada/http": "dev-master",
         "panada/session": "dev-master",
         "panada/utility": "dev-master",
-        "panada/router": "dev-master"
+        "panada/router": "dev-master",
+        "panada/loader": "dev-master"
     },
     "minimum-stability": "dev"
 }
