@@ -790,6 +790,7 @@ Panada 2.0 consist number of sub packages. To report any bug or make some contri
 Package | First install | Repo
 --- | --- | ---
 resource | yes | https://github.com/panada/resource
+loader | yes | https://github.com/panada/loader
 request | yes | https://github.com/panada/request
 utility | yes | https://github.com/panada/utility
 router | yes | https://github.com/panada/router
