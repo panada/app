@@ -15,9 +15,9 @@
         </div>
         <div class="content">
             <p>This is sample page view. You can find this file at:</p>
-            <pre class="code" data-language="html"><code><?=\Panada\Resource\Loader::$maps['Controller']?>view/index.php</code></pre>
+            <pre class="code" data-language="html"><code><?=\Panada\Resource\Gear::$appDir?>view/index.php</code></pre>
             <p>The controller of this page is located at:</p>
-            <pre class="code" data-language="html"><code><?=\Panada\Resource\Loader::$maps['Controller']?>Controller/Home.php</code></pre>
+            <pre class="code" data-language="html"><code><?=\Panada\Resource\Gear::$appDir?>Controller/Home.php</code></pre>
             <p>Base URI for this application is:</p>
             <pre class="code" data-language="html"><code><?=$this->uri->getBasePath()?></code></pre>
         </div>

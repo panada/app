@@ -29,5 +29,11 @@
         "panada/router": "dev-master",
         "panada/loader": "dev-master"
     },
+    "autoload": {
+        "classmap":[
+            "src/Controller",
+            "src/Module"
+        ]
+    },
     "minimum-stability": "dev"
 }
