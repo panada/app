@@ -6,13 +6,13 @@ date_default_timezone_set('Asia/Jakarta');
 $dir = dirname(__DIR__);
 
 // Application folder
-$appDir = $dir.'/src/';
+$appDir = $dir. DIRECTORY_SEPARATOR .'src' . DIRECTORY_SEPARATOR;
 
 // Composer's vendor folder
-$vendorDir = $dir.'/vendor/';
+$vendorDir = $dir. DIRECTORY_SEPARATOR. 'vendor' . DIRECTORY_SEPARATOR;
 
 // Include the autoloader class handler
-require $vendorDir.'panada/loader/Auto.php';
+require $vendorDir.'panada' . DIRECTORY_SEPARATOR . 'loader' . DIRECTORY_SEPARATOR . 'Auto.php';
 
 new Panada\Loader\Auto($vendorDir);
 
