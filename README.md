@@ -1,3 +1,5 @@
+##### Due to several work related commitments, the development rate is a little slow and I apologize for that. However, I'm looking for awesome folks :metal: who could contribute and help me maintain this project. If you have any queries that you may have on how to contribute, or you have just general questions about how to use the components in your app - feel free to shoot an email. I'll help you out! :smile_cat:
+
 # About Panada
 
 Panada is a high performance PHP 5.5 base development framework, yet simple.
