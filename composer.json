@@ -30,10 +30,10 @@
         "panada/loader": "dev-master"
     },
     "autoload": {
-        "classmap":[
-            "src/Controller",
-            "src/Module"
-        ]
+        "psr-4": {
+            "Controller\\": "src/Controller/",
+            "Module\\": "src/Module/"
+        }
     },
     "minimum-stability": "dev"
 }
